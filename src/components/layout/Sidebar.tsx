@@ -1,6 +1,6 @@
-// Enhanced Sidebar Component
-import {useState} from "react";
-import {Package, Users, Settings, ChevronDown, Store, Home, ShoppingCart, BarChart3, Wallet, X } from 'lucide-react';
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { Package, Users, Settings, ChevronDown, Store, Home, ShoppingCart, BarChart3, Wallet, X } from 'lucide-react';
 
 interface Shop {
     id: number;
@@ -12,23 +12,23 @@ interface Shop {
 interface SidebarProps {
     isOpen: boolean;
     onToggle: () => void;
-    activeView: string;
-    onViewChange: (view: string) => void;
     selectedShop: Shop | null;
     onShopChange: (shop: Shop) => void;
     shops: Shop[];
 }
 
-export const Sidebar = ({ isOpen, onToggle, activeView, onViewChange, selectedShop, onShopChange, shops }: SidebarProps) => {
+export const Sidebar = ({ isOpen, onToggle, selectedShop, onShopChange, shops }: SidebarProps) => {
     const [showShopDropdown, setShowShopDropdown] = useState<boolean>(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const menuItems = [
-        { id: 'dashboard', icon: Home, label: 'Dashboard', color: 'blue' },
-        { id: 'orders', icon: ShoppingCart, label: 'Đơn hàng', color: 'green' },
-        { id: 'products', icon: Package, label: 'Sản phẩm', color: 'purple' },
-        { id: 'customers', icon: Users, label: 'Khách hàng', color: 'yellow' },
-        { id: 'analytics', icon: BarChart3, label: 'Báo cáo', color: 'indigo' },
-        { id: 'finance', icon: Wallet, label: 'Tài chính', color: 'emerald' }
+        { id: 'dashboard', icon: Home, label: 'Dashboard', path: '/dashboard', color: 'blue' },
+        { id: 'orders', icon: ShoppingCart, label: 'Đơn hàng', path: '/orders', color: 'green' },
+        { id: 'products', icon: Package, label: 'Sản phẩm', path: '/products', color: 'purple' },
+        { id: 'customers', icon: Users, label: 'Khách hàng', path: '/customers', color: 'yellow' },
+        { id: 'analytics', icon: BarChart3, label: 'Báo cáo', path: '/analytics', color: 'indigo' },
+        { id: 'finance', icon: Wallet, label: 'Tài chính', path: '/finance', color: 'emerald' }
     ];
 
     const getShopIcon = (type: string) => {
@@ -47,6 +47,11 @@ export const Sidebar = ({ isOpen, onToggle, activeView, onViewChange, selectedSh
             case 'cosmetics': return 'from-purple-500 to-pink-500';
             default: return 'from-gray-500 to-gray-600';
         }
+    };
+
+    const handleNavigation = (path: string) => {
+        navigate(path);
+        onToggle(); // Close mobile menu after navigation
     };
 
     return (
@@ -164,14 +169,11 @@ export const Sidebar = ({ isOpen, onToggle, activeView, onViewChange, selectedSh
                         </p>
                         {menuItems.map(item => {
                             const Icon = item.icon;
-                            const isActive = activeView === item.id;
+                            const isActive = location.pathname === item.path;
                             return (
                                 <button
                                     key={item.id}
-                                    onClick={() => {
-                                        onViewChange(item.id);
-                                        onToggle(); // Close mobile menu
-                                    }}
+                                    onClick={() => handleNavigation(item.path)}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${
                                         isActive
                                             ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100'
@@ -200,12 +202,9 @@ export const Sidebar = ({ isOpen, onToggle, activeView, onViewChange, selectedSh
                 {/* Settings */}
                 <div className="p-4 border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
                     <button
-                        onClick={() => {
-                            onViewChange('settings');
-                            onToggle(); // Close mobile menu
-                        }}
+                        onClick={() => handleNavigation('/settings')}
                         className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 group ${
-                            activeView === 'settings'
+                            location.pathname === '/settings'
                                 ? 'bg-gray-100 text-gray-900'
                                 : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                         }`}

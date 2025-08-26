@@ -6,10 +6,10 @@ import {
     BarChart3, ArrowUpRight, Clock, CheckCircle, AlertCircle
 } from 'lucide-react';
 import {StatsCard} from "../components/cards/StatsCard.tsx";
-import type {DashboardProps} from "../types";
+import {useShop} from "../context/ShopContext.tsx";
 
-
-export const Dashboard = ({ orders, selectedShop }: DashboardProps) => {
+export const Dashboard = () => {
+    const { selectedShop, orders } = useShop();
     const shopOrders = selectedShop ? orders.filter(order => order.shopId === selectedShop.id) : orders;
 
     const stats = useMemo(() => {

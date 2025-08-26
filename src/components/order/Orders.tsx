@@ -1,7 +1,10 @@
-import React, {useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {Edit, Plus, Search, ShoppingCart, Trash2} from "lucide-react";
+import {useShop} from "../../context/ShopContext.tsx";
 
-export const Orders = ({ orders, selectedShop, onOrderUpdate }) => {
+
+export const Orders = () => {
+    const { selectedShop, orders, setOrders } = useShop();
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
     const [showAddForm, setShowAddForm] = useState(false);
@@ -46,7 +49,7 @@ export const Orders = ({ orders, selectedShop, onOrderUpdate }) => {
             ...newOrder,
             totalAmount: newOrder.quantity * newOrder.unitPrice
         };
-        onOrderUpdate([...orders, order]);
+        setOrders([...orders, order]);
         resetForm();
     };
 
@@ -62,12 +65,12 @@ export const Orders = ({ orders, selectedShop, onOrderUpdate }) => {
                 ? { ...newOrder, totalAmount: newOrder.quantity * newOrder.unitPrice }
                 : order
         );
-        onOrderUpdate(updatedOrders);
+        setOrders(updatedOrders);
         resetForm();
     };
 
     const handleDeleteOrder = (id) => {
-        onOrderUpdate(orders.filter(order => order.id !== id));
+        setOrders(orders.filter(order => order.id !== id));
     };
 
     const resetForm = () => {
