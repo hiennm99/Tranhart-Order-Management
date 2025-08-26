@@ -1,7 +1,7 @@
 // Enhanced Dashboard Component with magical design
 import {useMemo} from "react";
 import {
-    Plus, Package, TrendingUp, Users,
+    Plus, Package, TrendingUp,
     Settings, Store, ShoppingCart,
     BarChart3, ArrowUpRight, Clock, CheckCircle, AlertCircle,
     Sparkles, Zap, Star, Crown
@@ -337,7 +337,7 @@ export const Dashboard = () => {
                             </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100/50">
-                            {shopOrders.slice(0, 5).map((order, index) => (
+                            {shopOrders.slice(0, 5).map((order) => (
                                 <tr key={order.id} className="group hover:bg-gradient-to-r hover:from-blue-50/30 hover:to-purple-50/30 transition-all duration-300">
                                     <td className="px-8 py-6">
                                         <div className="flex items-center space-x-4">
