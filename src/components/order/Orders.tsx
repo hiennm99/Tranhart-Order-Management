@@ -3,11 +3,11 @@ import React, { useMemo, useState } from "react";
 import { Search, ShoppingCart, Plus, Package } from "lucide-react";
 
 // Types
-import { NewOrderForm, Order, Product } from '../../types/orders';
+import type {  NewOrderForm, Order, Product } from '../../types/orders';
 
 // Components
 import { OrderCard } from './OrderCard';
-import { TimelineModal } from './TimelineModal';
+import { TimelineModal } from "../modals/TimelineModal";
 import { OrderModal } from './OrderModal';
 
 // Hooks
@@ -15,6 +15,7 @@ import { useShop } from '../../hooks/useShop';
 
 // Constants
 import { statusConfig } from '../../constants/statusConfig';
+import { DEFAULT_ORDER_STATUS, DEFAULT_PAYMENT_STATUS } from '../../constants/common';
 
 export const Orders: React.FC = () => {
     const { selectedShop, orders, setOrders } = useShop();
@@ -35,8 +36,9 @@ export const Orders: React.FC = () => {
             unitPrice: 0,
             image: ''
         }],
-        currentStatus: 'Chờ xác nhận',
-        paymentStatus: 'Chưa thanh toán',
+
+        currentStatus: DEFAULT_ORDER_STATUS,
+        paymentStatus: DEFAULT_PAYMENT_STATUS,
         notes: ''
     });
 
@@ -86,8 +88,8 @@ export const Orders: React.FC = () => {
                 unitPrice: 0,
                 image: ''
             }],
-            currentStatus: 'Chờ xác nhận',
-            paymentStatus: 'Chưa thanh toán',
+            currentStatus: DEFAULT_ORDER_STATUS,
+            paymentStatus: DEFAULT_PAYMENT_STATUS,
             notes: ''
         });
         setShowAddForm(false);

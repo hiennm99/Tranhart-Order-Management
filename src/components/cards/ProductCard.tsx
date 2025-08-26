@@ -1,6 +1,7 @@
 // components/ProductCard.tsx
 import React from 'react';
 import type {Product} from "../../types/orders.ts";
+import { formatCurrency } from '../../utils/formatters';
 
 interface ProductCardProps {
     product: Product;
@@ -19,13 +20,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const getPlaceholderImage = (sku: string): string => {
         const code = sku.split('-')[1] || sku.slice(0, 3).toUpperCase();
         return `https://via.placeholder.com/400x400/3B82F6/FFFFFF?text=${code}`;
-    };
-
-    const formatCurrency = (amount: number): string => {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(amount);
     };
 
     return (

@@ -20,13 +20,25 @@ export const MOCK_ORDERS = [
         customerName: 'Nguyễn Văn A',
         phone: '0901234567',
         address: 'Hà Nội',
-        product: 'Áo thun',
-        quantity: 2,
-        unitPrice: 150000,
+        products: [
+            {
+                sku: 'AOI-TSN-001',
+                name: 'Áo thun nam cao cấp',
+                quantity: 2,
+                unitPrice: 150000,
+                image: 'ao-thun-1.jpg'
+            }
+        ],
         totalAmount: 300000,
-        status: 'Đã giao',
+        currentStatus: 'Giao thành công',
         paymentStatus: 'Đã thanh toán',
-        deliveryDate: '2024-01-18',
+        statusHistory: [
+            { status: 'Chờ xác nhận', timestamp: '2024-01-15T10:00:00Z', completed: true },
+            { status: 'Đã xác nhận', timestamp: '2024-01-15T14:00:00Z', completed: true },
+            { status: 'Đang chuẩn bị hàng', timestamp: '2024-01-16T09:00:00Z', completed: true },
+            { status: 'Đang vận chuyển', timestamp: '2024-01-17T08:00:00Z', completed: true },
+            { status: 'Giao thành công', timestamp: '2024-01-18T15:00:00Z', completed: true }
+        ],
         notes: 'Giao nhanh'
     },
     {
@@ -36,13 +48,24 @@ export const MOCK_ORDERS = [
         customerName: 'Trần Thị B',
         phone: '0909876543',
         address: 'TP.HCM',
-        product: 'Quần jeans',
-        quantity: 1,
-        unitPrice: 450000,
+        products: [
+            {
+                sku: 'AOI-QJN-002',
+                name: 'Quần jeans nữ slim fit',
+                quantity: 1,
+                unitPrice: 450000,
+                image: 'quan-jeans-1.jpg'
+            }
+        ],
         totalAmount: 450000,
-        status: 'Đang giao',
+        currentStatus: 'Đang giao hàng',
         paymentStatus: 'Chưa thanh toán',
-        deliveryDate: '2024-01-20',
+        statusHistory: [
+            { status: 'Chờ xác nhận', timestamp: '2024-01-16T11:00:00Z', completed: true },
+            { status: 'Đã xác nhận', timestamp: '2024-01-16T15:00:00Z', completed: true },
+            { status: 'Đang chuẩn bị hàng', timestamp: '2024-01-17T10:00:00Z', completed: true },
+            { status: 'Đang giao hàng', timestamp: '2024-01-18T09:00:00Z', completed: false }
+        ],
         notes: ''
     },
     {
@@ -52,13 +75,21 @@ export const MOCK_ORDERS = [
         customerName: 'Lê Văn C',
         phone: '0912345678',
         address: 'Đà Nẵng',
-        product: 'iPhone 15',
-        quantity: 1,
-        unitPrice: 25000000,
+        products: [
+            {
+                sku: 'TRI-IPH-001',
+                name: 'iPhone 15 Pro Max 256GB',
+                quantity: 1,
+                unitPrice: 25000000,
+                image: 'iphone-15-pro.jpg'
+            }
+        ],
         totalAmount: 25000000,
-        status: 'Chờ xử lý',
+        currentStatus: 'Chờ xác nhận',
         paymentStatus: 'Đã thanh toán',
-        deliveryDate: '',
+        statusHistory: [
+            { status: 'Chờ xác nhận', timestamp: '2024-01-17T16:00:00Z', completed: false }
+        ],
         notes: 'Kiểm tra máy kỹ'
     }
 ];

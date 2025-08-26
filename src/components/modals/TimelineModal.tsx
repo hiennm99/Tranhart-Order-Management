@@ -1,9 +1,9 @@
 // components/TimelineModal.tsx
 import React from 'react';
 import { XCircle } from 'lucide-react';
-import { Order } from '../types/orders';
-import { StatusTimeline } from './StatusTimeline';
-import { ProductCard } from './ProductCard';
+import type { Order } from '../../types/orders';
+import { StatusTimeline } from '../order/StatusTimeline';
+import { ProductCard } from '../cards/ProductCard';
 
 interface TimelineModalProps {
     order: Order | null;

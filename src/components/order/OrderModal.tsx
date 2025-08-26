@@ -1,8 +1,9 @@
 // components/OrderModal.tsx
 import React from 'react';
 import { XCircle, Plus, Trash2 } from 'lucide-react';
-import { NewOrderForm, Product, Shop } from '../types/orders';
-import { statusConfig, paymentStatusConfig } from '../constants/statusConfig';
+import type { NewOrderForm, Product, Shop } from '../../types/orders';
+import { statusConfig, paymentStatusConfig } from '../../constants/statusConfig';
+import { formatCurrency } from '../../utils/formatters';
 
 interface OrderModalProps {
     showAddForm: boolean;
@@ -18,23 +19,17 @@ interface OrderModalProps {
 }
 
 export const OrderModal: React.FC<OrderModalProps> = ({
-                                                          showAddForm,
-                                                          newOrder,
-                                                          setNewOrder,
-                                                          editingOrder,
-                                                          selectedShop,
-                                                          onClose,
-                                                          onSave,
-                                                          onAddProduct,
-                                                          onRemoveProduct,
-                                                          onUpdateProduct
-                                                      }) => {
-    const formatCurrency = (amount: number): string => {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(amount);
-    };
+                                                        showAddForm,
+                                                        newOrder,
+                                                        setNewOrder,
+                                                        editingOrder,
+                                                        selectedShop,
+                                                        onClose,
+                                                        onSave,
+                                                        onAddProduct,
+                                                        onRemoveProduct,
+                                                        onUpdateProduct
+                                                    }) => {
 
     if (!showAddForm) return null;
 

@@ -1,5 +1,5 @@
 // types/orders.ts
-import { LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
 
 export interface Product {
     sku: string;
@@ -36,7 +36,7 @@ export interface Shop {
 }
 
 export interface StatusConfig {
-    icon: LucideIcon;
+    icon: ComponentType<{ className?: string }>;
     color: string;
     bgColor: string;
     textColor: string;
@@ -44,7 +44,7 @@ export interface StatusConfig {
 }
 
 export interface PaymentStatusConfig {
-    icon: LucideIcon;
+    icon: ComponentType<{ className?: string }>;
     color: string;
 }
 

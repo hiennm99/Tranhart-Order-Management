@@ -1,8 +1,8 @@
 // components/StatusTimeline.tsx
 import React from 'react';
 import { FileText, Clock } from 'lucide-react';
-import { StatusHistoryItem, StatusConfig } from '../../types/orders'
-import { statusConfig } from '../constants/statusConfig';
+import type { StatusHistoryItem } from '../../types/orders'
+import { statusConfig } from '../../constants/statusConfig';
 
 interface StatusTimelineProps {
     statusHistory: StatusHistoryItem[];
@@ -21,7 +21,7 @@ export const StatusTimeline: React.FC<StatusTimelineProps> = ({
             </h4>
             <div className="space-y-3">
                 {statusHistory.map((item, index) => {
-                    const config: StatusConfig = statusConfig[item.status as keyof typeof statusConfig];
+                    const config = statusConfig[item.status as keyof typeof statusConfig];
                     const Icon = config?.icon || Clock;
                     const isCompleted = item.completed;
                     const isLast = index === statusHistory.length - 1;

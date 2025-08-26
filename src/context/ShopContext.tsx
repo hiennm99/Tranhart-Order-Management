@@ -9,22 +9,7 @@ interface Shop {
     status: string;
 }
 
-interface Order {
-    id: number;
-    shopId: number;
-    orderDate: string;
-    customerName: string;
-    phone: string;
-    address: string;
-    product: string;
-    quantity: number;
-    unitPrice: number;
-    totalAmount: number;
-    status: string;
-    paymentStatus: string;
-    deliveryDate?: string;
-    notes?: string;
-}
+import type { Order } from '../types/orders';
 
 interface ShopContextType {
     selectedShop: Shop | null;
@@ -34,7 +19,7 @@ interface ShopContextType {
     setOrders: (orders: Order[]) => void;
 }
 
-const ShopContext = createContext<ShopContextType | undefined>(undefined);
+export const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 export const useShop = () => {
     const context = useContext(ShopContext);

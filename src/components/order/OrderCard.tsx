@@ -4,10 +4,11 @@ import {
     Calendar, User, Phone, MapPin, DollarSign, Package,
     Eye, Edit, Trash2, Clock
 } from 'lucide-react';
-import { Order } from '../types/orders';
-import { ProductCard } from './ProductCard';
+import type { Order } from '../../types/orders';
+import { ProductCard } from '../cards/ProductCard';
 import { StatusTimeline } from './StatusTimeline';
-import { statusConfig, paymentStatusConfig } from '../constants/statusConfig';
+import { statusConfig, paymentStatusConfig } from '../../constants/statusConfig';
+import { formatCurrency } from '../../utils/formatters';
 
 interface OrderCardProps {
     order: Order;
@@ -22,12 +23,6 @@ export const OrderCard: React.FC<OrderCardProps> = ({
                                                         onEdit,
                                                         onDelete
                                                     }) => {
-    const formatCurrency = (amount: number): string => {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(amount);
-    };
 
     const config = statusConfig[order.currentStatus as keyof typeof statusConfig];
     const Icon = config?.icon || Clock;

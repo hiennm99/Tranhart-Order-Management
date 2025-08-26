@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Package, Users, Settings, ChevronDown, Store, Home, ShoppingCart, BarChart3, Wallet, X } from 'lucide-react';
+import { SHOP_TYPE_ICONS, SHOP_TYPE_COLORS } from '../../constants/common';
 
 interface Shop {
     id: number;
@@ -32,21 +33,11 @@ export const Sidebar = ({ isOpen, onToggle, selectedShop, onShopChange, shops }:
     ];
 
     const getShopIcon = (type: string) => {
-        switch (type) {
-            case 'fashion': return '👔';
-            case 'electronics': return '📱';
-            case 'cosmetics': return '💄';
-            default: return '🏪';
-        }
+        return SHOP_TYPE_ICONS[type as keyof typeof SHOP_TYPE_ICONS] || '🏪';
     };
 
     const getShopColor = (type: string) => {
-        switch (type) {
-            case 'fashion': return 'from-pink-500 to-rose-500';
-            case 'electronics': return 'from-blue-500 to-cyan-500';
-            case 'cosmetics': return 'from-purple-500 to-pink-500';
-            default: return 'from-gray-500 to-gray-600';
-        }
+        return SHOP_TYPE_COLORS[type as keyof typeof SHOP_TYPE_COLORS] || 'from-gray-500 to-gray-600';
     };
 
     const handleNavigation = (path: string) => {

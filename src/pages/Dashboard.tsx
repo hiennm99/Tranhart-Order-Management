@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import {StatsCard} from "../components/cards/StatsCard.tsx";
 import {useShop} from "../context/ShopContext.tsx";
+import { formatCurrency } from '../utils/formatters';
 
 export const Dashboard = () => {
     const { selectedShop, orders } = useShop();
@@ -16,9 +17,9 @@ export const Dashboard = () => {
     const stats = useMemo(() => {
         const totalRevenue = shopOrders.reduce((sum, order) => sum + order.totalAmount, 0);
         const totalOrders = shopOrders.length;
-        const pendingOrders = shopOrders.filter(order => order.status === 'Chờ xử lý').length;
-        const completedOrders = shopOrders.filter(order => order.status === 'Đã giao').length;
-        const inProgressOrders = shopOrders.filter(order => order.status === 'Đang giao').length;
+        const pendingOrders = shopOrders.filter(order => order.currentStatus === 'Chờ xác nhận').length;
+        const completedOrders = shopOrders.filter(order => order.currentStatus === 'Giao thành công').length;
+        const inProgressOrders = shopOrders.filter(order => order.currentStatus === 'Đang giao hàng').length;
 
         // Calculate growth rates (mock data for demo)
         const revenueGrowth = 12.5;
@@ -39,20 +40,13 @@ export const Dashboard = () => {
         };
     }, [shopOrders]);
 
-    const formatCurrency = (amount: number) => {
-        return new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(amount);
-    };
-
     const getStatusIcon = (status: string) => {
         switch (status) {
-            case 'Đã giao':
+            case 'Giao thành công':
                 return <CheckCircle className="h-4 w-4 text-emerald-600"/>;
-            case 'Đang giao':
+            case 'Đang giao hàng':
                 return <Clock className="h-4 w-4 text-blue-600"/>;
-            case 'Chờ xử lý':
+            case 'Chờ xác nhận':
                 return <AlertCircle className="h-4 w-4 text-amber-600"/>;
             default:
                 return <Clock className="h-4 w-4 text-gray-600"/>;
@@ -359,10 +353,10 @@ export const Dashboard = () => {
                                         </div>
                                     </td>
                                     <td className="px-8 py-6">
-                                        <div className="font-black text-gray-900 text-lg">{order.product}</div>
+                                        <div className="font-black text-gray-900 text-lg">{order.products[0]?.name || 'N/A'}</div>
                                         <div className="text-sm text-purple-600 font-bold flex items-center space-x-1">
                                             <span>📦</span>
-                                            <span>SL: {order.quantity}</span>
+                                            <span>SL: {order.products.reduce((sum, p) => sum + p.quantity, 0)}</span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-6">
@@ -372,13 +366,13 @@ export const Dashboard = () => {
                                     </td>
                                     <td className="px-8 py-6">
                                         <div className="flex items-center space-x-3">
-                                            {getStatusIcon(order.status)}
+                                            {getStatusIcon(order.currentStatus)}
                                             <span className={`px-4 py-2 text-xs font-black rounded-2xl shadow-lg ${
-                                                order.status === 'Đã giao' ? 'bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800' :
-                                                    order.status === 'Đang giao' ? 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800' :
+                                                order.currentStatus === 'Giao thành công' ? 'bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-800' :
+                                                    order.currentStatus === 'Đang giao hàng' ? 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800' :
                                                         'bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800'
                                             }`}>
-                                                {order.status}
+                                                {order.currentStatus}
                                             </span>
                                         </div>
                                     </td>

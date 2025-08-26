@@ -3,7 +3,7 @@ import {
     TruckIcon, Clock, CheckCircle, Package, ShoppingBag,
     Truck, CheckCircle2, AlertTriangle, XCircle, RefreshCw, ArrowLeft
 } from "lucide-react";
-import { StatusConfig, PaymentStatusConfig } from '../types/orders';
+import type { StatusConfig, PaymentStatusConfig } from "../types/orders";
 
 export const statusConfig: Record<string, StatusConfig> = {
     "Chờ xác nhận": {
@@ -86,7 +86,7 @@ export const statusConfig: Record<string, StatusConfig> = {
 };
 
 export const paymentStatusConfig: Record<string, PaymentStatusConfig> = {
-    "Chờ thanh toán": { icon: Clock, color: "from-yellow-500 to-orange-500" },
+    "Chưa thanh toán": { icon: Clock, color: "from-yellow-500 to-orange-500" },
     "Đã thanh toán": { icon: CheckCircle, color: "from-green-500 to-emerald-500" },
     "Thanh toán thất bại": { icon: XCircle, color: "from-red-500 to-pink-500" },
     "Hoàn tiền": { icon: RefreshCw, color: "from-blue-500 to-cyan-500" }
