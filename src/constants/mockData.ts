@@ -7,9 +7,9 @@ export const MOCK_USER = {
 };
 
 export const MOCK_SHOPS = [
-    { id: 1, name: 'Shop Thời Trang', type: 'fashion', status: 'active' },
-    { id: 2, name: 'Shop Điện Tử', type: 'electronics', status: 'active' },
-    { id: 3, name: 'Shop Mỹ Phẩm', type: 'cosmetics', status: 'active' }
+    { id: 1, name: 'Aoi Gallery', type: 'fashion', status: 'active' },
+    { id: 2, name: 'Tritone Gallery', type: 'electronics', status: 'active' },
+    { id: 3, name: 'Green Gallery', type: 'cosmetics', status: 'active' }
 ];
 
 export const MOCK_ORDERS = [
